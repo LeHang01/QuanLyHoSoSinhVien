@@ -1,42 +1,292 @@
-﻿<!DOCTYPE html>
-<html>
+﻿
+@model List<Model.EF.tb_SinhVien>
+@using CamTrai.Common
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+Template Name: Ost Magazine
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("scripts", required: false)
+    <title>Trang chủ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+    <link href="~/Content/client/styles/layout.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" />
+
+    <!-- style css -->
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <!-- Responsive-->
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    <!-- Font Awesome -->
+
+    <link href="~/Content/Admin/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <!-- Tempusdominus Bootstrap 4 -->
+
+    <link href="~/Content/Admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <!-- iCheck -->
+
+    <link href="~/Content/Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css" rel="stylesheet" />
+    <!-- JQVMap -->
+
+
+    <link href="~/Content/Admin/plugins/jqvmap/jqvmap.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+
+    <link href="~/Content/Admin/dist/css/adminlte.min.css" rel="stylesheet" />
+    <!-- overlayScrollbars -->
+    <link href="~/Content/Admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" rel="stylesheet" />
+    <!-- Daterange picker -->
+
+    <link href="~/Content/Admin/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <!-- summernote -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <link href="~/Content/Admin/plugins/summernote/summernote-bs4.min.css" rel="stylesheet" />
+    <script>
+        // Hàm được gọi khi nhấn vào liên kết "Register"
+        function scrollToRegisterForm() {
+            // Sử dụng jQuery để cuộn đến phần tử có id là "register-form"
+            $('html, body').animate({
+                scrollTop: $('#name').offset().top
+            }, 1000); // Thời gian cuộn (milliseconds)
+        }
+    </script>
+
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<body id="top">
+    <div class="wrapper col0" style="color: white; background: darkred">
+        <div id="topline">
+            <ul>
+                <li><a href="#" style="color: white; background: darkred">Dau</a></li>
+                <li><a href="#" style="color: white; background: darkred">Địa chỉ</a></li>
+                <li><a href="#" style="color: white; background: darkred">Email</a></li>
+                <li class="last"><a href="#" style="color: white; background: darkred">Facebook</a></li>
+            </ul>
+            <div id="search">
+                @using (Html.BeginForm("Search", "SinhVien", FormMethod.Get))
+                {
+                    <fieldset>
+                        <input type="text" name="keyword" id="txtKeyword" style="color: white; background: darkred" value="" onfocus="this.value=(this.value=='Search')? '' : this.value ;" />
+                        <input type="submit" style="color: white; background: darkred; height:33px" value="Search" />
+                    </fieldset>
+                }
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
+            <br class="clear" />
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <!-- ####################################################################################################### -->
+    <div class="wrapper col1" style="background-color:white">
+        <div id="header" style="background-color:white">
+            <div id="topnav" style="background-color:white">
+                <ul style="background-color:white">
+                    <li style="background-color:white">
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+                        @{
+                            UserLogin session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                        }
+
+                        @if (session != null)
+                        {
+
+                       
+
+                        <li class="active">
+                            <a href="@Url.Action("profile", "User", new { id = session.UserID })" style="color: black;background:white">Profile</a>
+
+                        </li>
+
+                        <li><a href="@Url.Action("Logout", "User")" style="color: black;background:white">Đăng xuất</a></li>
+
+                    }
+                    else
+                    {
+
+                        <li> <a href="@Url.Action("Register", "User")" style="color: black;background:white" onclick="scrollToRegisterForm()">Đăng ký</a> </li>
+
+                        <li> <a href="@Url.Action("Login", "User")" style="color: black;background:white">Đăng nhập</a> </li>
+                    }
+                        </li>
+
+                        <li style="background:white">
+                            <a href="#" style="color: black;background:white">Liên hệ</a>
+                           
+                        </li>
+
+
+                        <li><a href="@Url.Action("About", "Home")" style="color: black;background:white">Giới thiệu</a></li>
+                        <li class="active">
+                            <a href="@Url.Action("Index", "Home")" style="color: black;background:white">Trang chủ</a>
+
+                        </li>
+
+                    </ul>
+                </div>
+                <div id="logo">
+
+                    <img style="width:60%" src="~/Content/images/logo.png" />
+
+                </div>
+                <br class="clear" />
+            </div>
+        </div>
+        <!-- ####################################################################################################### -->
+        <div class="wrapper col2">
+            <div id="featured_slide">
+                <div class="featured_box">
+                    <div class="floater">
+                        <h2 style="color:white">1. THÔNG TIN ĐĂNG KÝ XÉT TUYỂN</h2>
+                        <p>Hình thức xét tuyển Xét theo điểm TB tất cả các môn của 5 HK</p>
+                    </div>
+                    <p class="readmore"><a href="#">Next &raquo;</a></p>
+
+                    <img src="~/Content/images/dau.jpg" />
+                </div>
+                <div class="featured_box">
+                    <div class="floater">
+                        <h2 style="color:white">2. TRA CỨU HỒ SƠ</h2>
+                        <p>Sinh viên tra cứu hồ sơ theo mã số sinh viên và mật khẩu nếu đã có tài khoản</p>
+                    </div>
+                    <p class="readmore"><a href="#">Next &raquo;</a></p>
+
+                    <img src="~/Content/images/dau3.jpg" />
+                </div>
+                <div class="featured_box">
+                    <div class="floater">
+                        <h2 style="color:white">3. KHUÔN VIÊN TRƯỜNG</h2>
+                        <p>Khuôn viên rộng rãi bao gồm chỗ để xe, với 8 tầng và 2 thang máy</p>
+                    </div>
+                    <p class="readmore"><a href="#">Next &raquo;</a></p>
+                    <img src="~/Content/images/dau1.jpg" />
+                </div>
+                <div class="featured_box">
+                    <div class="floater">
+                        <h2 style="color:white">4. Đảm bảo việc làm sau khi ra trường</h2>
+                        <p>Nhiều cựu sinh viên trở thành giám đốc, và rất thành công trong công việc</p>
+                    </div>
+                    <p class="readmore"><a href="#">Next &raquo;</a></p>
+                    <img src="~/Content/images/dau2.jpg" />
+                </div>
+                <div class="featured_box">
+                    <div class="floater">
+                        <h2 style="color:white">5. MÔI TRƯỜNG HỌC TẬP</h2>
+                        <p>Cha mẹ yên tâm để con em sinh sống và học tập</p>
+                    </div>
+                    <p class="readmore"><a href="#">Next &raquo;</a></p>
+                    <img src="~/Content/images/dau3.jpg" />
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- ####################################################################################################### -->
+        <!-- ####################################################################################################### -->
+        @RenderBody()
+
+        <div class="wrapper col4" style="background-color:darkred;">
+            <div id="footer">
+                <div class="box1" style="background-color:darkred;">
+                    <h2 style="background-color: white; color: black; text-align:center">Thông tin trường !</h2>
+                    <img class="imgl" src="images/demo/imgl.gif" alt="" />
+                    <p>
+                        Địa chỉ: 566 Núi Thành, phường Hòa Cường Nam, quận Hải Châu, TP. Đà Nẵng
+                    </p>
+                </div>
+                <div class="box contactdetails">
+                    <h2 style="background-color: white; color: black; text-align: center ">LIÊN KẾT TUYỂN SINH</h2>
+                    <ul>
+                        <li>TRA CỨU KẾT QUẢ THI TUYỂN SINH</li>
+                        <li>TRA CỨU KHU VỰC</li>
+                        <li>TRA CỨU ĐỐI TƯỢNG</li>
+                        <li>THI THỬ VẼ MỸ THUẬT</li>
+                        <li>Email: dau@edu.vn</li>
+
+                    </ul>
+                </div>
+                <div class="box flickrbox">
+                    <h2 style="background-color: white; color: black; text-align: center">Hình ảnh</h2>
+                    <div class="wrap">
+                        <div class="fix"></div>
+                        <div class="flickr_badge_image" id="flickr_badge_image1">
+                            <a href="#"><img style="width:30%" src="~/Content/images/dau.jpg" /></a>
+                        </div>
+
+
+                        <div class="fix"></div>
+                    </div>
+                </div>
+                <br class="clear" />
+            </div>
+        </div>
+        <!-- ####################################################################################################### -->
+
+
+    </body>
+
 </html>
+
+<script src="~/Scripts/js/jquery-ui.js"></script>
+
+<script src="~/Content/client/scripts/jquery.min.js"></script>
+
+<script src="~/Content/client/scripts/jquery.cycle.min.js"></script>
+<script src="~/Scripts/js/baseController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#featured_slide').after('<div id="fsn"><ul id="fs_pagination">').cycle({
+            timeout: 5000,
+            fx: 'fade',
+            pager: '#fs_pagination',
+            pause: 1,
+            pauseOnPagerHover: 0
+        });
+    });
+</script>
+<script src="~/Content/Admin/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="~/Content/Admin/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>$.widget.bridge('uibutton', $.ui.button)</script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/Content/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="~/Content/Admin/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="~/Content/Admin/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="~/Content/Admin/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="~/Content/Admin/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="~/Content/Admin/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="~/Content/Admin/plugins/moment/moment.min.js"></script>
+<script src="~/Content/Admin/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="~/Content/Admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="~/Content/Admin/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="~/Content/Admin/plugins/ckfinder/ckfinder.js"></script>
+<!-- overlayScrollbars -->
+<script src="~/Content/Admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/Content/Admin/plugins/ckfinder/ckfinder.js"></script>
+<script src="~/Content/Admin/plugins/ckeditor/ckeditor.js"></script>
+<script src="~/Content/Admin/dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="~/Content/Admin/dist/js/pages/dashboard.js"></script>
+

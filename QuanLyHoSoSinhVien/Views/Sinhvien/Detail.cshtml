@@ -1,0 +1,115 @@
+﻿@using Model.EF
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    tb_SinhVien sinhvien = (tb_SinhVien)ViewData["sinhvien"];
+}
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.7.0/dist/js/bootstrap.bundle.min.js"></script>
+}
+
+<style>
+    .custom-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .carousel-inner img {
+        width: 80%;
+        height: auto;
+    }
+
+    /* Loại bỏ khung bảng */
+    .table {
+        border: none;
+    }
+
+    /* Tùy chỉnh màu nền cho hàng chẵn */
+    .table-striped tbody tr:nth-child(even) {
+        background-color: white;
+    }
+
+    /* Tùy chỉnh màu nền cho hàng lẻ */
+    .table-striped tbody tr:nth-child(odd) {
+        background-color: #489ff0;
+        color: black; /* Màu chữ trắng để đảm bảo đọc được trên nền màu xanh dương */
+    }
+
+    /* Định dạng cột nhãn */
+    .info-label {
+        font-weight: bold;
+    }
+</style>
+
+<br />
+<h1 class="text-center" style="color: #007BFF;">Thông tin sinh viên</h1>
+<div class="custom-container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="carouselExample" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="@sinhvien.Image" alt="First slide">
+                    </div>
+                    <!-- Thêm các ảnh khác vào đây nếu cần -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <td class="info-label"><b>Họ Tên</b></td>
+                        <td>@sinhvien.Ho @sinhvien.Ten</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>MSSV</b></td>
+                        <td>@sinhvien.Mssv</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>Lớp</b></td>
+                        <td>@sinhvien.MaLop</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>Ngày sinh</b></td>
+                        <td>@sinhvien.NgaySinh</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>Giới tính</b></td>
+                        <td>@sinhvien.GioiTinh</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>Quê quán</b></td>
+                        <td>@sinhvien.DiaChi</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>Điểm GPA</b></td>
+                        <td>@sinhvien.DiemGPA</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>HashCode</b></td>
+                        <td>@sinhvien.HashCode</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>Số lần chỉnh sửa</b></td>
+                        <td>@sinhvien.EditCount</td>
+                    </tr>
+                    <tr>
+                        <td class="info-label"><b>Thời gian chỉnh sửa gần nhất</b></td>
+                        <td>@sinhvien.LastEditTime</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Kích hoạt carousel
+    $(document).ready(function () {
+        $('.carousel').carousel();
+    });
+</script>
