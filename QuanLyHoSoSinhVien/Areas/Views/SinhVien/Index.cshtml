@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<Model.EF.tb_SinhVien>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Quản lý Sinh viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    
+}
+<div class="row" style="margin-left:270px">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Danh sách sinh viên</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                @using (Html.BeginForm("Index", "SinhVien", FormMethod.Get))
+                {
+               
+                    <div class="input-group input-group-sm" style="width:500px">
+                        <input class="form-control form-control-navbar" value="@ViewBag.SearchString" name="searchString" type="search" placeholder="Search" aria-label="Search" >
+
+
+                        <div class="input-group-append">
+                            
+                                <button type="submit" class="btn btn-success">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        
+
+                        </div>
+
+                    </div>
+                    <br />
+                    <a class="btn btn-primary" href="/Admin/SinhVien/Create">Thêm mới</a>
+               
+                   
+                }
+                <br />
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Họ</th>
+                                <th>Tên</th>
+                                <th>Ảnh</th>
+                                <th>MSSV</th>
+                                <th>Lớp</th>
+                                <th>Điểm GPA</th>
+                                <th>Ngày sinh</th>
+                                <th>Giới tính</th>
+                                <th>Địa chỉ</th>
+                                <th>Hash code</th>
+                                <th>Số lần chỉnh sửa</th>
+                                <th>Thời gian chỉnh sửa gần nhất</th>
+                                <th>Sửa</th>
+                                <th>Xóa</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr id="row_@item.ID">
+
+                                <td>@item.Ho</td>
+                                <td>@item.Ten</td>
+                                <td> <img style="width: 50px" src="@item.Image" /></td>
+                                <td>@item.Mssv</td>
+                                <td>@item.MaLop</td>
+                                <td>@item.DiemGPA</td>
+                                <td>@item.NgaySinh</td>
+                                <td>@item.GioiTinh</td>
+                                <td>@item.DiaChi</td>
+                                <td>@item.HashCode</td>
+                                <td>@item.EditCount</td>
+                                <td>@item.LastEditTime</td>
+                                <td><a href="/Admin/SinhVien/Edit/@item.ID">Sửa</a></td>
+                                <td>
+                                    @Ajax.ActionLink("Xoá", "Delete", new { @id = item.ID }, new AjaxOptions
+                                      {
+                                          Confirm = "Xóa sinh viên?",
+                                          OnComplete = "$('#row_" + @item.ID + "').remove()",
+                                          HttpMethod = "Delete"
+                                      })
+                                </td>
+
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new {page,@searchString = @ViewBag.SearchString }))
+
+            <!-- /.card-body -->
+        </div>
+    
+    </div>
+    <!-- /.col -->
+</div>
