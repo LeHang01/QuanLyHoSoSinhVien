@@ -1,0 +1,68 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_mssv",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "_infoHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addStudent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_mssv",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStudent",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "students",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "mssv",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "infoHash",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
