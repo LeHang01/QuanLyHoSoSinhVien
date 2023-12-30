@@ -1,0 +1,100 @@
+﻿
+
+
+
+@model CamTrai.Models.RegisterModel
+@using BotDetect.Web.UI.Mvc;
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+      rel="stylesheet" type="text/css" />
+@{ MvcCaptcha registerCapcha = new MvcCaptcha("registerCapcha"); }
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/main.js"></script>
+    <style>
+        .form-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .signup-form {
+            width: 60%;
+            float: left;
+        }
+
+        .signup-image {
+            width: 35%;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <section class="signup">
+        <div class="container">
+            <div class="signup-content form-content">
+                <div class="signup-form">
+                    <h2 class="form-title">Sign up</h2>
+                    @using (Html.BeginForm("Register", "User", FormMethod.Post, new { id = "register-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            @if (ViewBag.Success != null)
+                            {
+                                <div class="alert alert-success">@ViewBag.Success</div>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label for="UserName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="UserName" id="UserName" placeholder="Your Name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Email"><i class="zmdi zmdi-email"></i></label>
+                            <input type="email" name="Email" id="Email" placeholder="Your Email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="Password" id="Password" placeholder="Password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="ConfirmPassword"><i class="zmdi zmdi-lock-outline"></i></label>
+                            <input type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Repeat your password" />
+                        </div>
+                        <div class="form-group">
+                            @Html.Captcha(registerCapcha)
+                            @Html.TextBox("CaptchaCode")
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                        </div>
+                    }
+                </div>
+                <div class="signup-image">
+                    <figure> <img src="~/images/signup-image.jpg" /></figure>
+                    <a href="#" class="signup-image-link">I am already a member</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>
